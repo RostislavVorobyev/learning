@@ -1,14 +1,11 @@
 import { useCallback, useState } from "react";
 import Questions from "../questions.js";
 import quizComplete from "../assets/quiz-complete.png";
-import ProgressBar from "./ProgressBar.jsx";
-
-const answerTime = 10000;
+import Question from "./Question.jsx";
 
 export default function Quiz() {
   const [answers, setAnswers] = useState([]);
   const [answerState, setAnswerState] = useState("");
-
   const currentQuestionIndex =
     answerState === "" ? answers.length : answers.length - 1;
 
@@ -43,51 +40,13 @@ export default function Quiz() {
     );
   }
 
-  const shuffledAnswers = [...Questions[currentQuestionIndex].answers].sort(
-    (a, b) => Math.random() - 0.5
-  );
-
-  const handleSkipAnswer = useCallback(
-    () => handleSelectAnswer(null),
-    [handleSelectAnswer]
-  );
-
   return (
     <div id="quiz">
-      <div id="question">
-        <ProgressBar
-          key={`bar-${currentQuestionIndex}`}
-          timeLimit={answerTime}
-          onTimeout={handleSkipAnswer}
-        />
-        <h2>{Questions[currentQuestionIndex].text}</h2>
-        <ul id="answers">
-          {shuffledAnswers.map((a, i) => {
-            const isSelected = a === answers[currentQuestionIndex];
-            let cssClasses = "";
-
-            if (answerState === "answered" && isSelected)
-              cssClasses = "selected";
-
-            console.log("GoT THIS!");
-            // prettier-ignore
-            if (isSelected && (answerState === "correct" || answerState === "wrong")){
-              cssClasses = answerState;
-            }
-
-            return (
-              <li key={i} className="answer">
-                <button
-                  className={cssClasses}
-                  onClick={() => handleSelectAnswer(a)}
-                >
-                  {a}
-                </button>
-              </li>
-            );
-          })}
-        </ul>
-      </div>
+      <Question
+        key={currentQuestionIndex}
+        questonKey={currentQuestionIndex}
+        onSelectAnswer={handleSelectAnswer}
+      ></Question>
     </div>
   );
 }
