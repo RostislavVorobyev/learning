@@ -26,19 +26,19 @@ function isPrime(number) {
 //on render look at props of your function, memo gets old props and comparing with new one and won't execute if ther are same values;
 // prevent unnecessary rerenders and code exeution from external changes.
 // not wrap everything with it, only top-level components. every memo call compares values which can be pricy.
-const Counter =  memo(function Counter({ initialCount }) {
+const Counter = memo(function Counter({ initialCount }) {
   log("<Counter /> rendered", 1);
   const initialCountIsPrime = isPrime(initialCount);
 
   const [counter, setCounter] = useState(initialCount);
 
-  function handleDecrement() {
+  const handleDecrement = useCallback(function handleDecrement() {
     setCounter((prevCounter) => prevCounter - 1);
-  }
+  }, []);
 
-  function handleIncrement() {
+  const handleIncrement = useCallback(function handleIncrement() {
     setCounter((prevCounter) => prevCounter + 1);
-  }
+  }, []);
 
   return (
     <section className="counter">
