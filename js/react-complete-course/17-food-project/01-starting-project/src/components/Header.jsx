@@ -1,13 +1,15 @@
-import logoImage from '../assets/logo.jpg'
+import logoImage from "../assets/logo.jpg";
 
 export default function Header() {
   return (
-    <div id='main-header'>
-      <div id='title'>
-        <img src={logoImage} alt='logo'></img>
-        REACTFOOD
+    <header id="main-header">
+      <div id="title">
+        <img src={logoImage} alt="logo"></img>
+        <h1>REACTFOOD</h1>
       </div>
-      <button className='cart'>Cart</button>
-    </div>
-  )
+      <nav>
+        <button className="button">Cart</button>
+      </nav>
+    </header>
+  );
 }
