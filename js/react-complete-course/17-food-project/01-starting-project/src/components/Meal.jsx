@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { currencyFormatter } from "../util/formatter";
+import Button from "./UI/Button";
 
 export default function Meal({ meal }) {
   return (
@@ -10,7 +11,7 @@ export default function Meal({ meal }) {
         {currencyFormatter.format(meal.price)}
       </div>
       <div className="meal-item-description ">{meal.description}</div>
-      <button className="button">Add to cart</button>
+      <Button className="button">Add to cart</Button>
     </div>
   );
 }
