@@ -1,6 +1,6 @@
-import { useContext } from "react";
+import { createContext, useState } from "react";
 
-export default UserProgressContext = useContext({
+const UserProgressContext = createContext({
   progress: "", //cart, checkout
   showCart: () => {},
   hideCart: () => {},
@@ -38,3 +38,5 @@ export function UserProgressContextProvider({ children }) {
     </UserProgressContext.Provider>
   );
 }
+
+export default UserProgressContext;
