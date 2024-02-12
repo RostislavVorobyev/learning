@@ -21,28 +21,38 @@
 // BONUS: Add another (nested) layout route that adds the <EventNavigation> component above all /events... page components
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import HomePage from "./components/HomePage";
-import EventsPage from "./components/EventsPage";
-import EventsDetailsPage from "./components/EventsDetailsPage";
+import EventsPage, { listEventsloader } from "./components/EventsPage";
+import EventsDetailsPage, { eventLoader } from "./components/EventsDetailsPage";
 import EditEventPage from "./components/EditEventPage";
 import NewEventPage from "./components/NewEventPage.jsx";
 import RootLayout from "./components/RootLayout.jsx";
 import EventsNavigation from "./components/EventsNavigation";
+import ErrorMessage from "./components/ErrorMessage.jsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <RootLayout />,
+    errorElement: <ErrorMessage />,
     children: [
       { index: true, element: <HomePage /> },
-      // should this be a sep element with children? try it!
       {
         path: "events",
         element: <EventsNavigation />,
         children: [
-          { index: true, element: <EventsPage /> },
-          { path: ":eventId", element: <EventsDetailsPage /> },
-          { path: "new", element: <NewEventPage /> },
+          {
+            index: true,
+            element: <EventsPage />,
+            loader: listEventsloader,
+          },
+          {
+            path: ":eventId",
+            element: <EventsDetailsPage />,
+            loader: eventLoader,
+          },
           { path: ":eventId/edit", element: <EditEventPage /> },
+
+          { path: "new", element: <NewEventPage /> },
         ],
       },
     ],
