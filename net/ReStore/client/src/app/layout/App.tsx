@@ -7,6 +7,8 @@ import {
 } from '@mui/material';
 import Header from './Header.tsx';
 import { useState } from 'react';
+import { Outlet } from 'react-router-dom';
+import { blueGrey } from '@mui/material/colors';
 
 export default function App() {
   const [darkMode, setDarkMode] = useState(false);
@@ -15,6 +17,10 @@ export default function App() {
   const theme = createTheme({
     palette: {
       mode: paletteType,
+      secondary: {
+        main: blueGrey[500],
+        light: blueGrey[100],
+      },
     },
   });
 
@@ -28,7 +34,7 @@ export default function App() {
         <CssBaseline />
         <Header darkMode={darkMode} changeTheme={changeTheme} />
         <Container>
-          <Catalog />
+          <Outlet />
         </Container>
       </div>
     </ThemeProvider>
