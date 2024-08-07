@@ -88,5 +88,5 @@ const Header = ({ changeTheme, darkMode }: Props) => {
     </AppBar>
   );
 };
-AppBar;
+
 export default Header;
